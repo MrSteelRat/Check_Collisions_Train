@@ -12,7 +12,7 @@ endif()
 project ("Check_speed_collisions_train_cmake")
 
 # Add source to this project's executable.
-add_executable (Check_speed_collisions_train_cmake "Check_speed_collisions_train.cpp" "Check_speed_collisions_train.h")
+add_executable (Check_speed_collisions_train_cmake "main.cpp" "train_system.h" "train_system.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Check_speed_collisions_train_cmake PROPERTY CXX_STANDARD 20)
