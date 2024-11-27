@@ -20,3 +20,12 @@ endif()
 
 # TODO: Add tests and install targets if needed.
 add_subdirectory(third_party/json)
+
+target_include_directories(Check_speed_collisions_train_cmake PRIVATE third_party/json/include)
+
+add_custom_command(
+    TARGET Check_speed_collisions_train_cmake POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_SOURCE_DIR}/config.json"
+        $<TARGET_FILE_DIR:Check_speed_collisions_train_cmake>
+)
