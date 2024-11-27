@@ -1,0 +1,14 @@
+{
+  "stations": [ "Station A", "Station B" ],
+  "trains": [
+    {
+      "speed": 100
+    },
+    {
+      "speed": 80
+    }
+  ],
+  "track_usage": {
+    "Station A_Station B": [ 1, 2 ]
+  }
+}
