@@ -15,7 +15,7 @@ This project simulates a train collision detection system. It uses the [nlohmann
 1. Install a C++ compiler with C++20 support (e.g., Visual Studio 2022).
 2. Clone the nlohmann/json library:
    ```bash
-   git clone https://github.com/nlohmann/json.git in third_party_
+   git clone https://github.com/nlohmann/json.git in third_party
 
 
 ### Linux
