@@ -1,5 +1,5 @@
 {
-  "stations": [ "Station A", "Station B" ],
+  "stations": [ "Station A-train", "Station B-train" ],
   "trains": [
     {
       "speed": 100
