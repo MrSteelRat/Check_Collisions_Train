@@ -4,14 +4,15 @@
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
-#include <string>
 #include <vector>
+#include <string>
 #include <memory>
-#include <utility> // For std::pair
-#include <nlohmann/json.hpp> 
-using json = nlohmann::json;
+#include <utility>
+#include <stdexcept>
+#include <nlohmann/json.hpp>
+#include <fstream>
 
-// Hash function for std::pair
+// Custom hash function for pairs
 struct pair_hash {
   template <typename T1, typename T2>
   size_t operator()(const std::pair<T1, T2>& p) const {
@@ -21,27 +22,37 @@ struct pair_hash {
   }
 };
 
+// Class representing a Station
 struct Station {
   std::string name;
-  explicit Station(const std::string& name);
+  explicit Station(const std::string& name) : name(name) {}
 };
 
+// Class representing a Train
 class Train {
 public:
+  int id;
   double speed;
-  explicit Train(double speed);
-  void move(double distance);
+  std::vector<std::string> route; // List of station names representing the route
+
+  Train(int id, double speed, const std::vector<std::string>& route)
+    : id(id), speed(speed), route(route) {
+  }
+
+  void move(const std::unordered_map<std::pair<std::string, std::string>, int, pair_hash>& track_lengths);
 };
 
-// Loading configuration from JSON
-class ConfigLoader {
+// Main Train System
+class TrainSystem {
+private:
+  std::unordered_map<std::string, std::unique_ptr<Station>> stations; // Map station names to objects
+  std::unordered_map<std::pair<std::string, std::string>, int, pair_hash> track_lengths; // Tracks and their lengths
+  std::unordered_map<std::pair<std::string, std::string>, std::unordered_set<int>, pair_hash> track_usage; // Tracks and train IDs using them
+
 public:
-  std::vector<std::unique_ptr<Station>> stations;
-  std::vector<std::unique_ptr<Train>> trains;
-
-  void load_config(const std::string& filepath);
+  void load_config(const std::string& config_file);
+  void simulate();
+  bool check_collisions() const;
 };
-
-bool check_collisions(const std::unordered_map<std::pair<Station*, Station*>, std::unordered_set<int>, pair_hash>& track_usage);
 
 #endif // TRAIN_SYSTEM_H
